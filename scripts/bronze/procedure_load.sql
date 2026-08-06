@@ -1,0 +1,98 @@
+/*
+===============================================================================
+Stored Procedure: Load Bronze Layer (Source -> Bronze)
+===============================================================================
+Script Purpose:
+    This stored procedure loads data into the 'bronze' schema from external CSV files. 
+    It performs the following actions:
+    - Truncates the bronze tables before loading data.
+    - Uses the `BULK INSERT` command to load data from csv Files to bronze tables.
+
+Parameters:
+    None. 
+	  This stored procedure does not accept any parameters or return any values.
+
+Usage Example:
+    EXEC bronze.load_bronze;
+===============================================================================
+*/
+
+
+CREATE OR ALTER PROCEDURE bronze.load_bronze AS
+BEGIN
+        DECLARE @start_time DATETIME, @end_time DATETIME, @batch_start_time DATETIME, @batch_end_time DATETIME;
+        BEGIN TRY
+                    SET @start_time = GETDATE();
+                    PRINT '================================================';
+                    PRINT 'Loading Bronze Layer';
+                    PRINT '================================================';
+                    
+                    SET @start_time = GETDATE();
+                    PRINT '>> Truncating Table: bronze.ms_orderss';
+                    TRUNCATE TABLE bronze.ms_orderss;
+                    PRINT '>> Inserting Data Into: bronze.ms_orderss';
+                    BULK INSERT bronze.ms_orderss
+                    FROM 'C:\Users\PC\Documents\New Folder\superstore\ms_orderss.csv'
+                    WITH (
+                         FORMAT = 'CSV',
+                        FIRSTROW = 2,
+                        FIELDQUOTE = '"',
+                        CODEPAGE = '1252'
+                    );
+                     SET @end_time = GETDATE();
+                     PRINT '>> Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
+		             PRINT '>> -------------';
+
+
+
+                    SET @start_time = GETDATE();
+                    PRINT '>> Truncating Table: bronze.ms_peoplee';
+                    TRUNCATE TABLE bronze.ms_peoplee;
+                    PRINT '>> Inserting Data Into: bronze.ms_peoplee';
+                    BULK INSERT bronze.ms_peoplee
+                    FROM 'C:\Users\PC\Documents\New Folder\superstore\ms_peoplee.csv'
+                    WITH (
+                        FIRSTROW = 2,
+                        FIELDTERMINATOR = ',',
+                        TABLOCK
+                    );
+                      SET @end_time = GETDATE();
+                     PRINT '>> Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
+		             PRINT '>> -------------';
+
+
+                    SET @start_time = GETDATE();
+                    PRINT '>> Truncating Table: bronze.ms_returnss';
+                    TRUNCATE TABLE bronze.ms_returnss;
+                    PRINT '>> Inserting Data Into: bronze.ms_returnss';
+                    BULK INSERT bronze.ms_returnss
+                    FROM 'C:\Users\PC\Documents\New Folder\superstore\ms_returnss.csv'
+                    WITH (
+                        FIRSTROW = 2,
+                        FIELDTERMINATOR = ',',
+                        TABLOCK
+                    );
+                      SET @end_time = GETDATE();
+                     PRINT '>> Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
+		             PRINT '>> -------------';
+
+
+                    SET @batch_end_time = GETDATE();
+		            PRINT '=========================================='
+		            PRINT 'Loading Bronze Layer is Completed';
+                    PRINT ' >>   - Total Load Duration: ' + CAST(DATEDIFF(SECOND, @batch_start_time, @batch_end_time) AS NVARCHAR) + ' seconds';
+		            PRINT '=========================================='
+
+             END TRY 
+
+                BEGIN CATCH 
+                PRINT '=========================================='
+		        PRINT 'ERROR OCCURED DURING LOADING BRONZE LAYER'
+		        PRINT 'Error Message' + ERROR_MESSAGE();
+		        PRINT 'Error Message' + CAST (ERROR_NUMBER() AS NVARCHAR);
+		        PRINT 'Error Message' + CAST (ERROR_STATE() AS NVARCHAR);
+		        PRINT '=========================================='
+                END CATCH
+
+END
+
