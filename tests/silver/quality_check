@@ -1,4 +1,19 @@
-
+/*
+===============================================================================
+Quality Checks
+===============================================================================
+Script Purpose:
+    This script performs various quality checks for data consistency and accuracy 
+     across the 'silver' layer. It includes checks for:
+    - Null or duplicate primary keys.
+    - Unwanted spaces in string fields.
+    - Invalid date ranges and orders.
+    
+Usage Notes:
+    - Run these checks after data loading Silver Layer.
+    - Investigate and resolve any discrepancies found during the checks.
+===============================================================================
+*/
 
 --1.)To get the dataset without duplicates and no nulls
 --Expectaions : Result should come back has only 1
