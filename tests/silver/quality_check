@@ -30,7 +30,7 @@ WITH Duplicates AS
                    Profit
                ORDER BY [Row ID]
            ) AS rn
-    FROM bronze.ms_orderss
+    FROM silver.ms_orderss
 )
 SELECT *
 FROM Duplicates
@@ -90,7 +90,7 @@ WHERE [Customer Name] <> TRIM([Customer Name])
    OR [Ship Mode] <> TRIM([Ship Mode]);
 
  --4.)check for invalid dates
- -- EXPECTATIONS : No result
+ -- Expectations : No result
 SELECT distinct
 year([Order Date])
 FROM silver.ms_orderss
@@ -119,7 +119,7 @@ WHERE [Regional Manager] <> TRIM([Regional Manager])
 
 --QUALITY CHECK MS_RETURNSS
 --1.) Check for NULLs or Duplicates in Primary Key
--- Expectation: No Results
+-- Expectations: No Results
 
 SELECT 
 [order ID],
