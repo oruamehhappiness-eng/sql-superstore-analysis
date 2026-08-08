@@ -76,26 +76,32 @@ GO
 
 CREATE VIEW gold.fact_sales AS
 SELECT
+    -- Keys / Identifiers
     o.[Row ID],
     o.[Order ID],
+    c.[Customer Key],
+    pr.[Product Key],
+
+    -- Dates / Order Details
     o.[Order Date],
     o.[Ship Date],
     o.[Ship Mode],
 
-    c.[Customer Key],
-    pr.[Product Key],
+    -- Location
+    o.[Country],
+    o.[State],
+    o.[City],
+    o.[Region],
 
+    -- Measures
     o.[Sales],
     o.[Quantity],
     o.[Discount],
     o.[Profit],
 
-    o.[City],
-    o.[Country],
-    o.[State],
-    o.[Region],
+    -- Regional Management
     p.[Regional Manager],
-
+    
     CASE
         WHEN r.[Order ID] IS NULL THEN 'Not Returned'
         ELSE 'Returned'
