@@ -1,0 +1,36 @@
+--To make sure no duplicate in customers
+    SELECT
+    [Customer ID],
+    COUNT(*) AS Count_Rows
+FROM gold.dim_customers
+GROUP BY [Customer ID]
+HAVING COUNT(*) > 1;
+
+--To confirm if there is no duplicate in the product
+SELECT
+    [Product ID],
+    COUNT(*) AS Count_Rows
+FROM gold.dim_products
+GROUP BY [Product ID]
+HAVING COUNT(*) > 1;
+
+--To confirm if there is no duplicate in the fact_sales
+SELECT
+    [Row ID],
+    COUNT(*) AS Count_Rows
+FROM gold.fact_sales
+GROUP BY [Row ID]
+HAVING COUNT(*) > 1;
+
+
+    --check if all dimension tables can successfully join to the fact table
+    SELECT * 
+    FROM gold.fact_sales f
+
+    LEFT JOIN gold.dim_customers c
+    ON c.[Customer Key] = f.[Customer Key]
+
+    LEFT JOIN gold.dim_products pr
+    ON pr.[Product Key] = f.[Product Key]
+
+    WHERE c.[Customer Key] IS NULL
