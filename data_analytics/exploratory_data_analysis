@@ -21,6 +21,19 @@ SELECT * FROM INFORMATION_SCHEMA.TABLES
 SELECT * FROM INFORMATION_SCHEMA. COLUMNS
 
 
+/*
+===============================================================================
+Dimensions Exploration
+===============================================================================
+Purpose:
+    - To explore the structure of dimension tables.
+	
+SQL Functions Used:
+    - DISTINCT
+    - ORDER BY
+===============================================================================
+*/
+
 --DIMENSIONS EXPLORATION
 --EXPLORE ALL COUNTRIES CUSTOMERS COME FROM
 SELECT DISTINCT [country] from gold.fact_sales
@@ -32,4 +45,83 @@ SELECT DISTINCT
 [Product Name]
 FROM gold.dim_products
 ORDER BY 1,2,3
+
+/*
+===============================================================================
+Date Range Exploration 
+===============================================================================
+Purpose:
+    - To determine the temporal boundaries of key data points.
+    - To understand the range of historical data.
+
+SQL Functions Used:
+    - MIN(), MAX(), DATEDIFF()
+===============================================================================
+*/
+
+-- To determine the first and last order date and the total duration in months
+SELECT 
+MIN([Order Date]) [First Order Date],
+MAX([Order Date]) [Last Order Date],
+DATEDIFF (Year,MIN([Order Date]),MAX([Order Date])) [Order Range Years]
+FROM gold.fact_sales;
+
+
+/*
+===============================================================================
+Measures Exploration (Key Metrics)
+===============================================================================
+Purpose:
+    - To calculate aggregated metrics (e.g., totals, averages) for quick insights.
+    - To identify overall trends or spot anomalies.
+
+SQL Functions Used:
+    - COUNT(), SUM(), AVG()
+===============================================================================
+*/
+
+-- To find the total sales
+SELECT SUM(Sales) [total sales] from gold.fact_sales
+
+-- To find how many items are sold
+SELECT SUM (Quantity) [total items] from gold.fact_sales
+
+-- To find the average sales
+SELECT AVG(Sales) [average sales] from gold.fact_sales
+
+-- To find the total number of orders
+SELECT COUNT([Order ID]) [total orders] from gold.fact_sales
+SELECT COUNT(DISTINCT[Order ID]) [total orders] from gold.fact_sales
+
+-- To find the total number of products
+SELECT COUNT([Product Name]) [total products] from gold.dim_products
+SELECT COUNT(DISTINCT[product key]) [total products] from gold.dim_products
+
+-- To find the total number of customers
+SELECT COUNT([customer key]) [total customers] from gold.dim_customers
+
+-- To find the total number of customers that has placed an order
+SELECT COUNT(DISTINCT[customer key]) [total customers] from gold.fact_sales
+
+/*To generate report that shows all key metrics of the business*/
+SELECT 'total sales' as measure_name, sum(sales) as measure_value from gold.fact_sales
+UNION ALL
+SELECT '[total items]' as measure_name, sum(Quantity) as measure_value from gold.fact_sales
+UNION ALL
+SELECT '[average sales]' as measure_name, avg(sales) as measure_value from gold.fact_sales
+UNION ALL
+SELECT '[total number of orders]' as measure_name,  COUNT(DISTINCT[Order ID]) as measure_value from gold.fact_sales
+UNION ALL
+SELECT '[total number of products]' as measure_name,  COUNT([Product Name]) as measure_value from gold.dim_products
+UNION ALL
+SELECT '[total number of customers]' as measure_name,  COUNT([customer key]) as measure_value from gold.dim_customers
+UNION ALL
+SELECT '[total nr.of customers that has placed an order]' as measure_name,  COUNT(DISTINCT[customer key]) as measure_value from gold.dim_customers
+
+
+
+
+
+
+
 
