@@ -32,6 +32,8 @@ The Gold Layer is the business-level representation of the Superstore data, stru
  | category	| NVARCHAR(50) | The broader classification of the product (e.g., Furniture, Office, Technology) to group related items. |
  | subcategory | NVARCHAR(50) |	A more detailed classification of the product within each category. |
 
+ -------
+
  **3. gold.fact_sales**
 - **Purpose:** Stores transactional sales data for analytical purposes..
 - **Columns:**
