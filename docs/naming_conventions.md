@@ -14,8 +14,8 @@ Table of Contents
    - [Silver Rules](#silver-rules)
    - [Gold Rules](#gold-rules)
 3. [Column Naming Conventions](#column-naming-conventions)
-   - [Surrogate Keys](##surrogate-keys)
-   - [Technical Columns](##technical-columns)
+   - [Surrogate Keys](#surrogate-keys)
+   - [Technical Columns](#technical-columns)
 4. [Stored Procedure](#stored-procedure)
 ---
 
@@ -40,7 +40,7 @@ General Principles
 Table Naming Conventions
 --------
 
-**Bronze Rules**
+###**Bronze Rules**
 
 - All names must start with the source system name, and table names must match their original names without renaming.
 - **`<sourcesystem>_<entity>`**
@@ -48,7 +48,7 @@ Table Naming Conventions
    - `<entity>:` Exact table name from the source system (e.g., ms_orderss).
    - Example: `superstore_ms_orderss` → Orders information from the superstore system.
 
-**Silver Rules**
+###**Silver Rules**
 
 - All names must start with the source system name, and table names must match their original names without renaming.
 - **`<sourcesystem>_<entity>`**
@@ -56,7 +56,7 @@ Table Naming Conventions
    - `<entity>:` Exact table name from the source system (e.g., ms_orderss).
    - Example: `superstore_ms_orderss` → Orders information from the superstore system.
 
-**Gold Rules**
+###**Gold Rules**
 
 - All names must use meaningful, business-aligned names for tables, starting with the category prefix.
 - **`<category>_<entity>`**
@@ -78,7 +78,7 @@ Table Naming Conventions
 Column Naming Conventions
 ------
 
-**Surrogate Keys**
+###**Surrogate Keys**
 
 - Surrogate keys in dimension tables use the suffix `Key`.
 - `<table_name> Key`
@@ -87,7 +87,7 @@ Column Naming Conventions
    - Example: `Customer Key` → Surrogate key in the `dim_customers` table.
    - Example: `Product Key` → Surrogate key in the `dim_products` table.
 
-**Technical Columns**
+###**Technical Columns**
 - No additional technical columns are currently implemented in the Gold layer.
 
 
