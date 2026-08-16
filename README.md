@@ -1,43 +1,127 @@
-# sql-superstore-analysis
+
+Superstore Data Warehouse and Analytics Project
+-----
+
+**Welcome to the Superstore Data Warehouse and Analytics Project repository!**
+
+This project demonstrates the development of a SQL Server data warehouse and analytics solution, from raw data ingestion and transformation to the creation of business-ready data models and analytical insights.
+The project applies the Medallion Architecture (Bronze, Silver, and Gold layers) to organize, clean, transform, and prepare Superstore sales data for analysis and reporting. As a portfolio project, it demonstrates practical skills in SQL, data warehousing, ETL, dimensional modeling, data cleaning, and business analysis.
+
+------
+Data Architecture
+----
+
+The data architecture for this project follows Medallion Architecture Bronze, Silver, and Gold layers:
+
+![Data Architecture](docs/data_architecture.png)
+
+1. **Bronze Layer:** Stores raw data as-is from the source systems. Data is ingested from CSV Files into SQL Server Database.
+2. **Silver Layer:** This layer includes data cleansing, standardization, and normalization processes to prepare data for analysis.
+3. **Gold Layer:** Houses business-ready data modeled into a star schema required for reporting and analytics.
+
+------------
+ Project Overview
+ ---
+This project involves:
+
+1. **Data Architecture:** Designing a modern data warehouse using the Medallion Architecture, consisting of Bronze, Silver, and Gold layers.
+2. **ETL Pipelines:** Extracting, transforming, and loading Superstore data from source files into the data warehouse.
+3. **Data Modeling:** Developing dimension and fact tables to organize data for efficient analytical queries.
+4. **Analytics & Reporting:** Performing SQL-based analysis to generate business insights related to sales, customers, products, profitability, returns, and regional performance.
 
 
-Welcome to the **Superstore Data Warehouse and Analytics Project** repository! 
-This project demonstrates a comprehensive data warehousing and analytics solution, from building a data warehouse to generating actionable insights. Designed as a portfolio project, it highlights industry best practices in data engineering and analytics.
-...
-
-
-
-**Project Requirements**
-Building the Data Warehouse (Data Engineering)
+-------
+Project Requirements
+--
+**Building the Data Warehouse (Data Engineering)**
 
 **Objective**
-Develop a modern data warehouse using SQL Server to consolidate sales data, enabling analytical reporting and informed decision-making.
 
-Specifications
-Data Sources: Import data from two source systems (ERP and CRM) provided as CSV files.
-Data Quality: Cleanse and resolve data quality issues prior to analysis.
-Integration: Combine both sources into a single, user-friendly data model designed for analytical queries.
-Scope: Focus on the latest dataset only; historization of data is not required.
-Documentation: Provide clear documentation of the data model to support both business stakeholders and analytics teams.
+Develop a modern data warehouse using SQL Server to organize and transform Superstore sales data, enabling efficient analytical queries and business decision-making.
 
+**Specifications**
 
-...
+- **Data Source:** Import Superstore sales data provided as CSV files into the SQL Server data warehouse.
+- **Data Quality:** Identify and resolve data quality issues, including duplicates, inconsistent values, incorrect data types, and missing or invalid data.
+- **Data Integration:** Transform and integrate the source data into a structured data warehouse consisting of Bronze, Silver, and Gold layers.
+- **Data Modeling:** Develop business-ready dimension and fact tables in the Gold layer to support analytical queries.
+- **Scope:** Focus on the available Superstore dataset; historical data tracking and Slowly Changing Dimensions (SCD) are not required for this project.
+- **Documentation:** Provide clear documentation of the data architecture, data catalog, data flow, data model, and naming conventions to support understanding and future analysis.
 
+-----
 BI: Analytics & Reporting (Data Analysis)
+--
 
-Objective
-Develop SQL-based analytics to deliver detailed insights into:
+**Objective**
 
-Customer Behavior
-Product Performance
-Sales Trends
+Develop SQL-based analytics to generate actionable business insights and evaluate key performance indicators across different areas of the Superstore business.
 
-These insights empower stakeholders with key business metrics, enabling strategic decision-making.
+**The analysis focuses on:**
 
+- **Sales Performance —** Analyze sales trends, growth, and performance across different periods and regions.
+- **Profitability —** Evaluate total profit and profit margins to identify profitable and loss-making areas.
+- **Customer Analysis —** Analyze customer segments, purchasing behavior, and customer contribution to sales and profit.
+- **Product Performance —** Identify top- and bottom-performing products, categories, and sub-categories.
+- **Returns Analysis —** Evaluate returned orders and their impact on sales and profitability.
+- **Geographic Performance —** Analyze sales and profitability across countries, states, cities, and regions.
+- **Regional Manager Performance —** Evaluate sales and profitability across regional managers.
 
-...
-🛡️ License
+These analyses provide stakeholders with key business metrics and actionable insights to support informed decision-making.
+
+----
+## 📁 Repository Structure
+
+```text
+sql-superstore-analysis/
+│
+├── datasets/                           # Raw datasets used for the project
+│
+├── docs/                               # Project documentation
+│   ├── data_architecture.drawio        # Draw.io file for the project architecture
+│   ├── data_catalog.md                 # Data catalog and field descriptions
+│   ├── data_flow.drawio                # Data flow diagram
+│   ├── data_models.drawio              # Data model / star schema
+│   └── naming_conventions.md           # Naming conventions
+│
+├── scripts/                            # SQL scripts for ETL and transformations
+│   ├── bronze/                         # Scripts for loading raw data
+│   ├── silver/                         # Scripts for cleaning and transforming data
+│   └── gold/                           # Scripts for analytical models
+│
+├── tests/                              # Data quality and test scripts
+│
+├── README.md                           # Project overview
+├── LICENSE                             # License information
+└── .gitignore                          # Files and directories to ignore
+```
+
+-----------
+License
+--
 This project is licensed under the MIT License. You are free to use, modify, and share this project with proper attribution.
 
-🌟 About Me
-Hi there! I'm Baraa Khatib Salkini, also known as Data With Baraa. I’m an IT professional and passionate YouTuber on a mission to share knowledge and make working with data enjoyable and engaging!
+-----
+About Me
+-----
+Hi, I'm Happiness 👋
+
+I'm a Business Administration graduate transitioning into Data Analytics, combining my business background with technical skills to understand and solve business problems using data.
+
+My current focus is on:
+
+- **SQL & SQL Server**
+- **Excel**
+- **Power BI**
+- **Data Cleaning & Transformation**
+- **Data Warehousing**
+- **Business & Sales Analysis**
+
+I enjoy working on projects that turn raw data into meaningful insights and business-ready information.
+
+This Superstore SQL Data Warehouse Project is part of my hands-on learning journey, where I applied the Medallion Architecture (Bronze, Silver, and Gold) to build a structured data warehouse and perform business-focused analysis.
+
+## Let's Stay in Touch!
+
+Feel free to connect with me on LinkedIn:
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/happiness-oruameh-90a26a246/)
