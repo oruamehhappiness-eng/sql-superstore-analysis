@@ -1,1 +1,35 @@
 
+/*
+===============================================================================
+Database Exploration
+===============================================================================
+Purpose:
+    - To explore the structure of the database, including the list of tables and their schemas.
+    - To inspect the columns and metadata for specific tables.
+
+Table Used:
+    - INFORMATION_SCHEMA.TABLES
+    - INFORMATION_SCHEMA.COLUMNS
+===============================================================================
+*/
+
+--DATABASE EXPLORATION
+--EXPLORE ALL OBJECTS IN THE DATABASE
+SELECT * FROM INFORMATION_SCHEMA.TABLES
+
+--EXPLORE ALL COLUMNS IN THE DATABASE
+SELECT * FROM INFORMATION_SCHEMA. COLUMNS
+
+
+--DIMENSIONS EXPLORATION
+--EXPLORE ALL COUNTRIES CUSTOMERS COME FROM
+SELECT DISTINCT [country] from gold.fact_sales
+
+--EXPLORE ALL CATEGORY ' THE MAJOR DIVISIONS'
+SELECT DISTINCT 
+[Category], 
+[Sub-Category],
+[Product Name]
+FROM gold.dim_products
+ORDER BY 1,2,3
+
