@@ -125,3 +125,4 @@ SELECT '[total nr.of customers that has placed an order]' as measure_name,  COUN
 
 
 
+
