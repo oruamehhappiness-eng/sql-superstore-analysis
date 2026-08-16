@@ -13,9 +13,9 @@ Table of Contents
    - [Bronze Rules](#bronze-rules)
    - [Silver Rules](#silver-rules)
    - [Gold Rules](#gold-rules)
-3. [Column Naming Conventions](##column-naming-conventions)
-   - [Surrogate Keys](###surrogate-keys)
-   - [Technical Columns](###technical-columns)
+3. [Column Naming Conventions](#column-naming-conventions)
+   - [Surrogate Keys](##surrogate-keys)
+   - [Technical Columns](##technical-columns)
 4. [Stored Procedure](#stored-procedure)
 ---
 
