@@ -140,7 +140,7 @@ FROM yearly_product_sales
 
 ORDER BY
 product_name,
-order_year
+order_year;
 
 
 
