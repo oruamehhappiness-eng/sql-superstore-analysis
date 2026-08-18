@@ -1,4 +1,43 @@
+/*
+===============================================================================
+                    DATA ANALYTICS TECHNIQUES
+===============================================================================
 
+TABLE OF CONTENTS
+
+1. Change Over Time Analysis
+   - Monthly Sales Performance
+   - Customer Growth Over Time
+   - Quantity Trends
+   - Date Functions: YEAR(), MONTH(), DATETRUNC(), FORMAT()
+
+2. Cumulative Analysis
+   - Running Total of Sales
+   - Moving Average of Sales
+   - Window Functions: SUM() OVER(), AVG() OVER()
+
+3. Performance Analysis
+   - Year-over-Year (YoY) Analysis
+   - Previous Year Comparison
+   - Average Performance Comparison
+   - Above/Below Average Classification
+   - Increase/Decrease Analysis
+   - Window Functions: LAG(), AVG() OVER(), CASE
+
+4. Data Segmentation Analysis
+   - Product Segmentation by Sales Range
+   - Customer Segmentation by Spending Behavior
+   - VIP, Regular, and New Customer Segments
+   - CASE, DATEDIFF(), GROUP BY, CTEs
+
+5. Part-to-Whole Analysis
+   - Category Sales Contribution
+   - Overall Sales Comparison
+   - Percentage of Total Sales
+   - Window Functions: SUM() OVER()
+
+===============================================================================
+*/
 
 /*
 ===============================================================================
@@ -142,7 +181,155 @@ ORDER BY
 product_name,
 order_year;
 
+/*
+===============================================================================
+Data Segmentation Analysis
+===============================================================================
+Purpose:
+    - To group products and customers into meaningful segments based on
+      business-defined ranges and behavioral characteristics.
+    - To understand the distribution of products across different sales ranges.
+    - To segment customers based on spending behavior and customer lifespan.
+    - To identify customer groups such as VIP, Regular, and New customers.
+    - To support targeted business decisions and customer-focused strategies.
 
+Analysis Covered:
+    1. Product Segmentation
+        - Groups products into sales ranges.
+        - Counts the number of products within each range.
+
+    2. Customer Segmentation
+        - Groups customers based on spending and relationship lifespan.
+        - Identifies VIP, Regular, and New customers.
+        - Counts the number of customers in each segment.
+
+SQL Techniques Used:
+    - CASE: Creates business-defined segmentation categories.
+    - SUM(): Calculates total customer spending.
+    - MIN() / MAX(): Identifies first and last customer orders.
+    - DATEDIFF(): Calculates customer lifespan.
+    - GROUP BY: Aggregates entities within each segment.
+    - Common Table Expressions (CTEs): Organizes intermediate calculations.
+===============================================================================
+*/
+
+-- Segment products into sales ranges and
+-- count how many products fall into each segment
+
+WITH product_segment AS(
+SELECT
+P.[Product Key] as product_key,
+P.[Product Name],
+F.Sales,
+CASE WHEN f.Sales < 100 THEN 'Below 100'
+     WHEN f.Sales BETWEEN 100 AND 500 THEN '100-500'
+	 WHEN f.Sales BETWEEN 500 AND 1000 THEN '500-1000'
+     ELSE 'Above 1000'
+END cost_range
+	 
+FROM gold.fact_sales f
+LEFT JOIN gold.dim_products p
+ON f.[Product Key] = p.[Product Key])
+
+SELECT
+cost_range,
+COUNT(product_key) AS total_products
+FROM product_segment
+GROUP BY cost_range
+ORDER BY total_products
+
+
+/*Group customers into three segments based on their spending behavior:
+-VIP: atleast 12 months of history and spending more than 5000
+-Regular: atleast 12 months of history but spending 5,000 or less
+-New: lifespan less than 12 months
+And find the total number of customers by each group*/
+
+WITH customer_spending AS(
+SELECT 
+c.[Customer Key] AS customer_key,
+SUM( f.Sales) as total_spending,
+MIN( f.[Order Date] ) as first_order,
+MAX( f.[Order Date] ) as last_order,
+DATEDIFF(month, MIN( f.[Order Date] ) , MAX( f.[Order Date] ) ) AS lifespan
+
+
+FROM gold.fact_sales f
+LEFT JOIN gold.dim_customers c
+ON f.[Customer Key] = c.[Customer Key]
+GROUP BY 
+c.[Customer Key]
+  )
+
+SELECT
+customer_segment,
+COUNT(customer_key) AS total_customers
+FROM(
+   SELECT
+   customer_key,
+   total_spending,
+   lifespan,
+   CASE WHEN lifespan >= 12 and total_spending > 5000 then 'VIP'
+		WHEN lifespan >= 12 and total_spending <= 5000 then 'Regular'
+		ELSE 'New'
+	END customer_segment
+   from customer_spending
+   )  AS segmented_customers
+   
+   GROUP BY customer_segment
+   ORDER BY total_customers DESC
+
+
+/*
+===============================================================================
+Part-to-Whole Analysis
+===============================================================================
+Purpose:
+    - To evaluate how individual categories contribute to overall business
+      performance.
+    - To identify which product categories have the greatest impact on total
+      sales.
+    - To compare category-level sales against overall sales.
+
+Analysis Covered:
+    1. Calculates total sales for each product category.
+    2. Calculates overall sales across all categories.
+    3. Determines each category's percentage contribution to total sales.
+    4. Ranks categories based on their total sales contribution.
+
+SQL Techniques Used:
+    - SUM(): Calculates total sales.
+    - SUM() OVER(): Calculates the overall sales total.
+    - CAST(): Converts values to a compatible data type for percentage
+      calculations.
+    - ROUND(): Rounds percentage results.
+    - CONCAT(): Formats the percentage with a '%' symbol.
+    - GROUP BY: Aggregates sales by product category.
+    - Common Table Expression (CTE): Organizes the category-level calculation.
+===============================================================================
+*/
+
+--Which categories contribute the most to overall sales
+  
+WITH category_sales AS(
+SELECT
+P.Category as category,
+SUM( F.Sales) Total_Sales
+
+FROM gold.fact_sales f
+LEFT JOIN gold.dim_products p
+ON f.[Product Key] = p.[Product Key]
+
+GROUP BY 
+p.Category
+)
+  SELECT 
+  category,
+  total_sales,
+  SUM(total_sales) OVER() overall_sales,
+  CONCAT(ROUND((CAST(total_sales AS  FLOAT)/sum(total_sales ) OVER ()) * 100, 2), '%') AS percentage_of_total
+  FROM category_Sales
+  ORDER BY total_sales DESC
 
 
 
