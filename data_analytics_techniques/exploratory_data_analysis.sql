@@ -1,15 +1,71 @@
-/*===============================================================================
-TABLE OF CONTENTS
+/*
+===============================================================================
+                    DATABASE EXPLORATION & ANALYSIS
 ===============================================================================
 
-1. Database Exploration
-2. Dimensions Exploration
-3. Date Range Exploration
-4. Measures Exploration
-5. Magnitude Analysis
-6. Ranking Analysis
+TABLE OF CONTENTS
 
-===============================================================================*/
+1. Database Exploration
+   - Explore All Tables
+   - Explore All Columns
+   - INFORMATION_SCHEMA.TABLES
+   - INFORMATION_SCHEMA.COLUMNS
+
+2. Dimensions Exploration
+   - Explore Customer Countries
+   - Explore Product Categories
+   - Explore Product Sub-Categories
+   - Explore Products
+   - DISTINCT
+   - ORDER BY
+
+3. Date Range Exploration
+   - First Order Date
+   - Last Order Date
+   - Order Date Range
+   - MIN()
+   - MAX()
+   - DATEDIFF()
+
+4. Measures Exploration
+   - Total Sales
+   - Total Items Sold
+   - Average Sales
+   - Total Orders
+   - Total Products
+   - Total Customers
+   - Customers Who Have Placed Orders
+   - COUNT()
+   - COUNT(DISTINCT)
+   - SUM()
+   - AVG()
+   - UNION ALL
+
+5. Magnitude Analysis
+   - Total Customers by Country
+   - Total Products by Category
+   - Average Sales by Category
+   - Total Profit by Category
+   - Total Profit by Customer
+   - Quantity Sold by Region
+   - SUM()
+   - COUNT()
+   - AVG()
+   - GROUP BY
+   - ORDER BY
+
+6. Ranking Analysis
+   - Top 5 Products by Profit
+   - Top 10 Customers by Revenue
+   - Bottom 5 Products by Profit
+   - Customers with Fewest Orders
+   - TOP
+   - ROW_NUMBER()
+   - GROUP BY
+   - ORDER BY
+
+===============================================================================
+*/
 /*
 ===============================================================================
 Database Exploration
