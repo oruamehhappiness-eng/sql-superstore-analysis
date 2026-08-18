@@ -68,18 +68,56 @@ Develop SQL-based analytics to generate actionable business insights and evaluat
 
 These analyses provide stakeholders with key business metrics and actionable insights to support informed decision-making.
 
+-----
+Business Reporting
+----
+The `business_report` folder serves as the main analytical reporting layer of the project.
+
+Rather than only writing individual SQL queries, the analysis is organized into structured business reports that answer specific business questions and provide supporting query results.
+
+Each report focuses on a particular area of the business and may include:
+
+- Key performance indicators (KPIs)
+- Business questions
+- Overall performance analysis
+- Segmentation by relevant business dimensions
+- Trend analysis
+- Comparative analysis
+- Financial impact analysis
+- Query results and supporting screenshots
+
+This approach demonstrates how SQL can be used not only to retrieve data, but also to structure analysis around real-world business questions and communicate findings to stakeholders.
+
+-----------
 ----
 ## 📁 Repository Structure
 
 ```text
 sql-superstore-analysis/
 │
+├── business_report/                    # Business-focused SQL analysis and results
+│   ├── customers_report.sql             # Customer analysis and insights
+│   ├── customers_result.png             # Customer analysis results
+│   ├── products_report.sql              # Product performance analysis
+│   ├── products_result_1.png            # Product analysis results
+│   ├── products_result_2.png            # Additional product results
+│   ├── returns_report.sql               # Returns analysis
+│   ├── returns_overall_report.png       # Overall returns results
+│   ├── sales_report.sql                 # Sales and revenue analysis
+│   ├── sales_result_1.png               # Sales analysis results
+│   └── sales_result_2.png               # Additional sales results
+│
+├── data_analytics_techniques/           # SQL techniques used for deeper analysis  
+│   ├── exploratory_data_analysis.sql    # Explore patterns, trends, and data quality
+│   └── advanced_analysis.sql            # Advanced SQL analysis and business insights
+|
 ├── datasets/                           # Raw datasets used for the project
 │
 ├── docs/                               # Project documentation
 │   ├── data_architecture.drawio        # Draw.io file for the project architecture
 │   ├── data_catalog.md                 # Data catalog and field descriptions
 │   ├── data_flow.drawio                # Data flow diagram
+|   ├── data_integration.drawio         # Data integration diagram
 │   ├── data_models.drawio              # Data model / star schema
 │   └── naming_conventions.md           # Naming conventions
 │
@@ -91,11 +129,11 @@ sql-superstore-analysis/
 ├── tests/                              # Data quality and test scripts
 │
 ├── README.md                           # Project overview
-├── LICENSE                             # License information
-└── .gitignore                          # Files and directories to ignore
+└──LICENSE                              # License information
+└── 
 ```
+----
 
------------
 License
 --
 This project is licensed under the MIT License. You are free to use, modify, and share this project with proper attribution.
@@ -119,6 +157,8 @@ My current focus is on:
 I enjoy working on projects that turn raw data into meaningful insights and business-ready information.
 
 This Superstore SQL Data Warehouse Project is part of my hands-on learning journey, where I applied the Medallion Architecture (Bronze, Silver, and Gold) to build a structured data warehouse and perform business-focused analysis.
+
+A key part of the project is the Business Reporting layer, where I transformed the warehouse data into structured analytical reports covering sales, customers, products, returns, profitability, and regional performance. This allowed me to connect technical SQL development with practical business questions and stakeholder-focused analysis.
 
 ## Let's Stay in Touch!
 
