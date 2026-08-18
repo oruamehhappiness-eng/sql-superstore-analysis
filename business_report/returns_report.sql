@@ -384,3 +384,129 @@ FROM returns_over_time
 
 ORDER BY 
     order_month;
+
+
+
+/*
+===============================================================================
+Returns by Regional Manager
+===============================================================================
+Purpose:
+    - Analyzes sales, orders, and profit performance by regional manager
+      and region.
+    - Measures the financial impact of returned orders on overall performance.
+
+Highlights:
+    1. Calculates:
+        - total sales
+        - returned sales
+        - actual sales after returns
+        - total orders
+        - returned orders
+        - actual orders after returns
+        - total profit
+        - returned profit
+        - actual profit after returns
+    2. Compares the financial performance of regional managers and regions.
+    3. Highlights the impact of returns on sales and profitability.
+    4. Ranks regional managers based on actual profit after returns.
+===============================================================================
+*/
+
+SELECT  
+    f.[Regional Manager], 
+    f.Region, 
+ 
+    -- TOTAL SALES 
+    CAST( 
+        ROUND(SUM(f.Sales), 2) 
+        AS DECIMAL(18,2) 
+    ) AS total_sales, 
+ 
+    -- RETURNED SALES 
+    CAST( 
+        ROUND( 
+            SUM(CASE 
+                WHEN f.Return_Status = 'returned' 
+                THEN f.Sales 
+                ELSE 0 
+            END), 
+            2 
+        ) 
+        AS DECIMAL(18,2) 
+    ) AS returned_sales, 
+ 
+    -- ACTUAL SALES AFTER RETURNS 
+    CAST( 
+        ROUND( 
+            SUM(f.Sales) 
+            - 
+            SUM(CASE 
+                WHEN f.Return_Status = 'returned' 
+                THEN f.Sales 
+                ELSE 0 
+            END), 
+            2 
+        ) 
+        AS DECIMAL(18,2) 
+    ) AS actual_sales, 
+ 
+    -- TOTAL ORDERS 
+    COUNT(DISTINCT f.[Order ID]) AS total_orders, 
+ 
+    -- RETURNED ORDERS 
+    COUNT(DISTINCT CASE 
+        WHEN f.Return_Status = 'returned' 
+        THEN f.[Order ID] 
+    END) AS returned_orders, 
+ 
+    -- ACTUAL ORDERS 
+    COUNT(DISTINCT f.[Order ID]) 
+    - 
+    COUNT(DISTINCT CASE 
+        WHEN f.Return_Status = 'returned' 
+        THEN f.[Order ID] 
+    END) AS actual_orders, 
+ 
+    -- TOTAL PROFIT 
+    CAST( 
+        ROUND(SUM(f.Profit), 2) 
+        AS DECIMAL(18,2) 
+    ) AS total_profit, 
+ 
+    -- RETURNED PROFIT 
+    CAST( 
+        ROUND( 
+            SUM(CASE 
+                WHEN f.Return_Status = 'returned' 
+                THEN f.Profit 
+                ELSE 0 
+            END), 
+            2 
+        ) 
+        AS DECIMAL(18,2) 
+    ) AS returned_profit, 
+ 
+    -- ACTUAL PROFIT AFTER RETURNS 
+    CAST( 
+        ROUND( 
+            SUM(f.Profit) 
+            - 
+            SUM(CASE 
+                WHEN f.Return_Status = 'returned' 
+                THEN f.Profit 
+                ELSE 0 
+            END), 
+            2 
+        ) 
+        AS DECIMAL(18,2) 
+    ) AS actual_profit 
+ 
+FROM gold.fact_sales f 
+ 
+GROUP BY 
+    f.[Regional Manager], 
+    f.Region 
+ 
+ORDER BY 
+    actual_profit DESC;
