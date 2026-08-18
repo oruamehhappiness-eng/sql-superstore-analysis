@@ -169,3 +169,6 @@ SELECT
 
 FROM customer_aggregation;
 GO
+
+
+![customers_report](query_results/customer_result.png)
