@@ -160,7 +160,7 @@ This Superstore SQL Data Warehouse Project is part of my hands-on learning journ
 
 A key part of the project is the Business Reporting layer, where I transformed the warehouse data into structured analytical reports covering sales, customers, products, returns, profitability, and regional performance. This allowed me to connect technical SQL development with practical business questions and stakeholder-focused analysis.
 
-## Let's Stay in Touch!
+## Let's Stay in Touch! 
 
 Feel free to connect with me on LinkedIn:
 
