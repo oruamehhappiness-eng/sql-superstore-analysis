@@ -1,4 +1,4 @@
--- 1.) Check for NULLs or Duplicates in ms_orderss
+-- 1.) Check for NULLs or Duplicates in ms_orderss 
 --Expectations : column 'rn' should equal 1
 SELECT
     [Order ID],
